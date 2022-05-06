@@ -1,0 +1,294 @@
+/* Import Files */
+@import 'colors';
+
+/* Global Rulez */
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: $white-BG;
+    font-family: 'Inter', sans-serif;
+}
+
+.container {
+    width: 100%; 
+    margin: auto;
+    padding: 50px 30px;
+}
+
+/* Mixins */
+@mixin prefixer ($property, $value, $prefixes: ()) {
+    @each $prefix in $prefixes {
+        #{'-' + $prefix + '-' + $property}: $value;
+    }
+    $property: $value;
+}
+
+/* Reusable Styles */
+%instagramIcon{
+    color: transparent;
+    background: $instagram;
+    background-clip: text;
+    @include prefixer(background-clip, text, webkit moz o);
+}
+
+.display-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 30px;
+}
+
+.main-box {
+    padding: 30px;
+    border-radius: 5px;
+    background-color: $lightGrayishBlue-CardBG;
+    cursor: pointer;
+    position: relative;
+    @include prefixer(transition, all 0.3s ease-in-out, webkit moz o);
+    &:hover{
+        background-color: $lightToggle;
+    }
+}
+
+/* Layout Styles */
+
+/*-----------------------------------------*/
+
+/* Start Main*/
+main{
+    display: flex;
+
+    .main-title {
+        width: 50%;
+        h2 {
+            color: $veryDarkBlue-Text;
+            font-weight: bold;
+        }
+
+        h4 {
+            color: $darkGrayishBlue-Text;
+        }
+    }
+    .toggle-switch {
+        width: 50%;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        p {
+            font-weight: bold;
+            font-size: 18px;
+            color: $darkGrayishBlue-Text;
+        }
+        .toggle-button {
+            margin-left: 10px;
+            width: 60px;
+            height: 30px;
+            border-radius: 25px;
+            background-color: $darkGrayishBlue-Text;
+            position: relative;
+            cursor: pointer;
+            span{
+                position: absolute;
+                top: 3.5px;
+                @include prefixer(transform, translate(33px), webkit moz o);
+                height: 23px;
+                width: 23px;
+                background-color: $veryPaleBlue-TopBGPattern;
+                border-radius: 50%;
+            }
+        }
+    }
+}
+
+/*-----------------------------------------*/
+
+/* Start Social Grid Template */
+.social-grid-container {
+    .total-statistics {
+        margin: 60px 0;
+        text-align: center;
+        @media (max-width: 575px) {
+            grid-template-columns: repeat(1, 4fr);
+        }
+        &-box {
+            &:after{
+                content: '';
+                border-top-left-radius: 5px;
+                border-top-right-radius: 5px;
+                background-color: #000;
+                width: 100%;
+                height: 5px;
+                position: absolute;
+                top: 0;
+                left: 0;
+                display: block;
+            }
+            &.facebook:after {
+                background: $facebook;
+            }
+            &.twitter:after {
+                background: $twitter;
+            }
+            &.instagram:after {
+                background: $instagram;
+            }
+            &.youtube:after {
+                background: $youtube;
+            }
+
+            h5 {
+                i {
+                    font-size: 30px;
+                    &.fa-facebook-square{
+                        color: $facebook;
+                    }
+                    &.fa-twitter{
+                        color: $twitter;
+                    }
+                    &.fa-instagram{
+                        @extend %instagramIcon
+                    }
+                    &.fa-youtube-square{
+                        color: $youtube;
+                    }
+                }
+                span {
+                    font-size: 14px;
+                    color: $darkGrayishBlue-Text;
+                    position: relative;
+                    bottom: 6px;
+                }
+            }   
+            h1 {
+                margin: 20px 0 25px;
+                font-size: 60px;
+                span {
+                    display: block;
+                    font-size: 14px;
+                    color: $darkGrayishBlue-Text;
+                    letter-spacing: 5px;
+                    text-transform: uppercase;
+                }
+            }
+            p {
+                color: $limeGreen;
+                font-weight: bold;
+                i {
+                    position: relative;
+                    bottom: -4px;
+                }
+                &.youtube{
+                    color: $brightRed;
+                    i {
+                        bottom: 3px;
+                    }
+                }
+            }
+        }
+    }
+    /* Day Statistics */
+    .day-statistics {
+        grid-template-areas: 
+                            'overview overview overview overview'
+                            'area1 area2 area3 area4'
+                            'area5 area6 area7 area8';
+        @media (max-width: 575px) {
+            grid-template-areas: 
+                                'overview overview overview overview'
+                                'area1 area1 area1 area1'
+                                'area2 area2 area2 area2'
+                                'area3 area3 area3 area3'
+                                'area4 area4 area4 area4'
+                                'area5 area5 area5 area5'
+                                'area6 area6 area6 area6'
+                                'area7 area7 area7 area7'
+                                'area8 area8 area8 area8';
+        }
+        &-box {
+            display: grid;
+            grid-template-columns: repeat(2, 2fr);
+            &.area-1{
+                grid-area: area1;
+            }
+            &.area-2{
+                grid-area: area2;
+            }
+            &.area-3{
+                grid-area: area3;
+            }
+            &.area-4{
+                grid-area: area4;
+            }
+            &.area-5{
+                grid-area: area5;
+            }
+            &.area-6{
+                grid-area: area6;
+            }
+            &.area-7{
+                grid-area: area7;
+            }
+            &.area-8{
+                grid-area: area8;
+            }
+            &.overview {
+                grid-area: overview;
+                padding: 0;
+                cursor: auto;
+                grid-template-columns: 12fr;
+                background-color: transparent;
+                color: $darkGrayishBlue-Text;
+            }
+            .views {
+                h3 {
+                    font-size: 14px;
+                    margin: 15px 0;
+                    color: $darkGrayishBlue-Text;
+                }
+                h5 {
+                    font-size: 35px;
+                }
+            }
+            .icon {
+                text-align: right;
+                h3 {
+                    font-size: 30px;
+                    margin: 15px 0;
+                    i {
+                        &.fa-facebook-square {
+                            color: $facebook;
+                        }
+                        &.fa-twitter-square {
+                            color: $twitter;
+                        }
+                        &.fa-instagram {
+                            @extend %instagramIcon
+                        }
+                        &.fa-youtube-square {
+                            color: $youtube;
+                        }
+                    }
+                }
+                h5 {    
+                    color: $limeGreen;
+                    font-weight: bold;
+                    span.down {
+                        color: $youtube;
+                    }
+                    i {
+                        position: relative;
+                        bottom: -4px;
+                        &.fa-sort-down{
+                            bottom: 3px;
+                            color: $youtube;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+}
